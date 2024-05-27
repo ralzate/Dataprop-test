@@ -1,12 +1,26 @@
 <h1><%= @property.address %></h1>
-<p><strong>Price:</strong> <%= @property.price %></p>
+<p><strong>Price:</strong> <%= @property.price %> <%= @property.currency %></p>
 <p><strong>Area:</strong> <%= @property.area %> m²</p>
 <p><strong>Bedrooms:</strong> <%= @property.bedrooms %></p>
 <p><strong>Bathrooms:</strong> <%= @property.bathrooms %></p>
+<p><strong>Description:</strong> <%= @property.description %></p>
 
 <div>
   <%= link_to "Edit this property", edit_property_path(@property) %> |
   <%= link_to "Back to properties", properties_path %>
-
-  <%= button_to "Destroy this property", @property, method: :delete %>
 </div>
+
+<div id="map" style="height: 400px;"></div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var map = L.map('map').setView([<%= @property.latitude %>, <%= @property.longitude %>], 13);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Agregar marcador con ubicación de la propiedad
+    L.marker([<%= @property.latitude %>, <%= @property.longitude %>]).addTo(map);
+  });
+</script>

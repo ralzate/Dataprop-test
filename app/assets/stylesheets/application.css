@@ -13,3 +13,72 @@
  *= require_tree .
  *= require_self
  */
+
+.search-bar {
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.search-bar input[type="text"],
+.search-bar select,
+.search-bar input[type="number"] {
+    padding: 10px;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.search-bar .search-button {
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+.properties-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.property {
+    border: 1px solid #ccc;
+    padding: 20px;
+    width: 300px;
+}
+
+.property h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.property p {
+    margin: 5px 0;
+}
+
+.property a {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+}
+
+.property a:hover {
+    background-color: #0056b3;
+}
+
+.property-photos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.property-photos img {
+    max-width: 300px;
+    max-height: 300px;
+    object-fit: cover;
+    border: 1px solid #ccc;
+    padding: 5px;
+}

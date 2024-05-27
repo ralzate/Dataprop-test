@@ -1,2 +1,25 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<%= form_with url: root_path, method: :get, local: true do %>
+  <div class="search-bar">
+    <%= text_field_tag :query, params[:query], placeholder: "Search properties..." %>
+    <%= select_tag :property_type, options_for_select(['Apartment', 'House', 'Condo'], selected: params[:property_type]), prompt: 'Property Type' %>
+    <%= number_field_tag :min_price, params[:min_price], placeholder: 'Min Price' %>
+    <%= number_field_tag :max_price, params[:max_price], placeholder: 'Max Price' %>
+    <%= number_field_tag :bedrooms, params[:bedrooms], placeholder: 'Bedrooms' %>
+    <%= number_field_tag :bathrooms, params[:bathrooms], placeholder: 'Bathrooms' %>
+    <%= submit_tag "Search", class: "search-button" %>
+  </div>
+<% end %>
+
+<div class="properties-list">
+  <% @properties.each do |property| %>
+    <div class="property">
+      <h2><%= link_to property.address, property_path(property) %></h2>
+      <p><strong>Price:</strong> <%= property.price %> <%= property.currency %></p>
+      <p><strong>Area:</strong> <%= property.area %> m²</p>
+      <p><strong>Bedrooms:</strong> <%= property.bedrooms %></p>
+      <p><strong>Bathrooms:</strong> <%= property.bathrooms %></p>
+      <p><strong>Description:</strong> <%= property.description %></p>
+      <%= link_to 'View Details', property_path(property) %>
+    </div>
+  <% end %>
+</div>
