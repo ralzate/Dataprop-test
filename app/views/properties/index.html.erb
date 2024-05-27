@@ -1,0 +1,7 @@
+<h1>Properties</h1>
+<%= link_to 'New Property', new_property_path, class: 'btn btn-primary' %>
+<ul>
+  <% @properties.each do |property| %>
+    <li><%= link_to property.address, property %></li>
+  <% end %>
+</ul>
