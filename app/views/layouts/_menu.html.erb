@@ -1,0 +1,12 @@
+<nav>
+  <ul>
+    <li><%= link_to 'Inicio', root_path %></li>
+    <li><%= link_to 'Propiedades', properties_path %></li>
+
+    <% if user_signed_in? %>
+        <li><%= link_to 'Editar perfil', edit_user_registration_path %></li>
+    <% end %>
+
+    <!-- Agrega más elementos de menú según sea necesario -->
+  </ul>
+</nav>
