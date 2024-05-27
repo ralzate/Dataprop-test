@@ -3,3 +3,10 @@
 <p><strong>Area:</strong> <%= @property.area %> m²</p>
 <p><strong>Bedrooms:</strong> <%= @property.bedrooms %></p>
 <p><strong>Bathrooms:</strong> <%= @property.bathrooms %></p>
+
+<div>
+  <%= link_to "Edit this property", edit_property_path(@property) %> |
+  <%= link_to "Back to properties", properties_path %>
+
+  <%= button_to "Destroy this property", @property, method: :delete %>
+</div>
