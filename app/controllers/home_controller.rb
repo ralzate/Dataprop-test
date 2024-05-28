@@ -2,6 +2,11 @@ class HomeController < ApplicationController
   def index
     @properties = Property.all
 
+    @property_types = {
+      'Arriendo' => 'rent',
+      'Venta' => 'sale'
+    }
+
     if params[:query].present?
       @properties = @properties.where("address ILIKE ? OR description ILIKE ?", "%#{params[:query]}%", "%#{params[:query]}%")
     end

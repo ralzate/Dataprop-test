@@ -1,9 +1,9 @@
-<%= form_with(model: @property) do |form| %>
+<%= form_with(model: @property, local: true) do |form| %>
   <% if @property.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(property.errors.count, "error") %> prohibited this property from being saved:</h2>
+      <h2><%= pluralize(@property.errors.count, "error") %> prohibited this property from being saved:</h2>
       <ul>
-        <% property.errors.full_messages.each do |message| %>
+        <% @property.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>
@@ -11,31 +11,68 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :address %>
-    <%= form.text_field :address %>
+    <%= form.label :property_type %>
+    <%= form.select :property_type, Property.property_types.keys.map { |type| [t("property_types.#{type}"), type] }, {}, class: "form-control" %>
   </div>
 
   <div class="field">
     <%= form.label :price %>
-    <%= form.number_field :price %>
+    <%= form.number_field :price, class: "form-control" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :currency %>
+    <%= form.select :currency, Property.currencies_for_select, {}, class: "form-control" %>
+  </div>
+
+ <div class="field">
+    <%= form.label :district %>
+    <%= form.select :district_id, options_for_select(@districts.map { |district| [district.name, district.id] }, selected: @property.district_id), {}, class: "form-control" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :address %>
+    <%= form.text_field :address, class: "form-control" %>
   </div>
 
   <div class="field">
     <%= form.label :area %>
-    <%= form.number_field :area %>
+    <%= form.number_field :area, class: "form-control" %>
   </div>
 
   <div class="field">
     <%= form.label :bedrooms %>
-    <%= form.number_field :bedrooms %>
+    <%= form.number_field :bedrooms, class: "form-control" %>
   </div>
 
   <div class="field">
     <%= form.label :bathrooms %>
-    <%= form.number_field :bathrooms %>
+    <%= form.number_field :bathrooms, class: "form-control" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :latitude %>
+    <%= form.text_field :latitude, class: "form-control" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :longitude %>
+    <%= form.text_field :longitude, class: "form-control" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description, class: "form-control" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :photos %>
+    <%= form.file_field :photos, multiple: true, class: "form-control" %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class: "btn btn-primary" %>
   </div>
 <% end %>
+
+

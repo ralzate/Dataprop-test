@@ -14,10 +14,13 @@ class PropertiesController < ApplicationController
   # GET /properties/new
   def new
     @property = Property.new
+    @districts = District.all
   end
 
   # GET /properties/1/edit
   def edit
+    @property = Property.find(params[:id])
+    @districts = District.all
     unless current_user == @property.user
       redirect_to @property, alert: "You are not authorized to edit this property."
     end
@@ -26,6 +29,7 @@ class PropertiesController < ApplicationController
   # POST /properties
   def create
     @property = current_user.properties.build(property_params)
+    @districts = District.all
 
     respond_to do |format|
       if @property.save
@@ -80,6 +84,6 @@ class PropertiesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def property_params
-    params.require(:property).permit(:property_type, :price, :currency, :district, :address, :area, :bedrooms, :bathrooms, :latitude, :longitude, :description)
+    params.require(:property).permit(:property_type, :price, :currency, :district_id, :address, :area, :bedrooms, :bathrooms, :latitude, :longitude, :description, photos: [])
   end
 end

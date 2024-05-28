@@ -1,7 +1,7 @@
 <%= form_with url: root_path, method: :get, local: true do %>
   <div class="search-bar">
     <%= text_field_tag :query, params[:query], placeholder: "Search properties..." %>
-    <%= select_tag :property_type, options_for_select(['Apartment', 'House', 'Condo'], selected: params[:property_type]), prompt: 'Property Type' %>
+    <%= select_tag :property_type, options_for_select(@property_types, selected: params[:property_type]), prompt: 'Tipo de Propiedad' %>
     <%= number_field_tag :min_price, params[:min_price], placeholder: 'Min Price' %>
     <%= number_field_tag :max_price, params[:max_price], placeholder: 'Max Price' %>
     <%= number_field_tag :bedrooms, params[:bedrooms], placeholder: 'Bedrooms' %>

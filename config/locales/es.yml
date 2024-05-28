@@ -1,0 +1,5 @@
+es:
+  property_types:
+    rent: "Arriendo"
+    sale: "Venta"
+    all: "Todos"

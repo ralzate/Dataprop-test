@@ -7,9 +7,19 @@
 <p><strong>Bathrooms:</strong> <%= @property.bathrooms %></p>
 <p><strong>Description:</strong> <%= @property.description %></p>
 
+<% if @property.photos.attached? %>
+  <h2>Photos:</h2>
+  <div class="property-photos">
+    <% @property.photos.each do |photo| %>
+      <%= image_tag photo %>
+    <% end %>
+  </div>
+<% end %>
+
 <div>
   <%= link_to "Edit this property", edit_property_path(@property) %> |
-  <%= link_to "Back to properties", properties_path %>
+  <%= link_to "Back to properties", properties_path %>  |
+  <%= link_to "Delete this property", @property, method: :delete, data: { confirm: "Are you sure you want to delete this property?" } %>
 </div>
 
 <div id="map" style="height: 400px;"></div>
