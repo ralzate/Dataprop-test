@@ -27,31 +27,34 @@ class Property < ApplicationRecord
     currencies.keys.map { |currency| [currency, currency] }
   end
 
-  def self.usd_to_clp
+  def fetch_dollar_value
     response = HTTParty.get('https://mindicador.cl/api')
+    
     if response.success?
-      dolar_value = response.parsed_response['dolar']['valor'] 
-      dolar_value.to_f
+      response.parsed_response['dolar']['valor'].to_f
     else
       raise StandardError, "Error al obtener el valor del dólar desde Mindicador.cl: #{response.code}"
     end
   end
+  
+  def usd_to_clp
+    dollar_value = fetch_dollar_value
 
-  def self.clp_to_usd
-    response = HTTParty.get('https://mindicador.cl/api')
-    if response.success?
-      dolar_value = response.parsed_response['dolar']['valor'] 
-      (1 / dolar_value.to_f).round(2)
-    else
-      raise StandardError, "Error al obtener el valor del dólar desde Mindicador.cl: #{response.code}"
-    end
+    (price.to_f * dollar_value).round(2)
+  end
+  
+  def clp_to_usd
+    dollar_value = fetch_dollar_value
+    dollar_conversion_rate = (1 / dollar_value)
+    
+    (price.to_f * dollar_conversion_rate).round(2)
   end
 
   def converted_price
     if currency == 'USD'
-      { amount: (price.to_f * self.class.usd_to_clp).round(2), currency: 'CLP' }
-    elsif currency == 'COP'
-      { amount: (price.to_f * self.class.clp_to_usd).round(2), currency: 'USD' }
+      { amount: usd_to_clp, currency: 'CLP' }
+    elsif currency == 'CLP'
+      { amount: clp_to_usd, currency: 'USD' }
     else
       { amount: price, currency: currency }
     end
