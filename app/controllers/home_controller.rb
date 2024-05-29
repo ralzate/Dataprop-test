@@ -26,5 +26,7 @@ class HomeController < ApplicationController
     if params[:bathrooms].present?
       @properties = @properties.where(bathrooms: params[:bathrooms])
     end
+
+    @properties = @properties.page(params[:page]).per(10) # Paginar resultados
   end
 end

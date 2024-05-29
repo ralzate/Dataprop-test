@@ -46,10 +46,12 @@ gem "bootsnap", require: false
 gem 'devise', '~> 4.8'
 gem 'leaflet-rails'
 gem 'httparty'
+gem 'kaminari'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ]
+  gem 'faker', '~> 2.20', require: false
 end
 
 group :development do
