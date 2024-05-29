@@ -3,3 +3,24 @@ es:
     rent: "Arriendo"
     sale: "Venta"
     all: "Todos"
+  properties:
+    title: Propiedades
+    new_property: Nueva propiedad
+    edit: Editar propiedad
+    back: Volver a propiedades
+    delete: Eliminar esta propiedad
+    confirm_delete: ¿Estás seguro de que quieres eliminar esta propiedad?
+    price: Precio
+    converted_price: Precio convertido
+    area: Área
+    bedrooms: Dormitorios
+    bathrooms: Baños
+    description: Descripción
+    error_prohibited: "prohibió que esta propiedad se guardara"
+    new: Nueva propiedad
+    success_created: "La propiedad se creó correctamente."
+    success_updated: "La propiedad se actualizó correctamente."
+    success_destroyed: "La propiedad se eliminó correctamente."
+    photo: Foto
+    photos: Fotos
+    error: Error

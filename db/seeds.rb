@@ -19,9 +19,11 @@ def random_integer(min, max)
 end
 
 def random_latitude_longitude
-    { latitude: random_decimal(-34.8, -34.5), longitude: random_decimal(-58.5, -58.3) }
+    { 
+        latitude: random_decimal(1, 12),  
+        longitude: random_decimal(-79, -72)  
+    }
 end
-
 100.times do
     Property.create(
         property_type: ["rent", "sale"].sample,

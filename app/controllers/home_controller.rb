@@ -7,26 +7,12 @@ class HomeController < ApplicationController
       'Venta' => 'sale'
     }
 
-    if params[:query].present?
-      @properties = @properties.where("address ILIKE ? OR description ILIKE ?", "%#{params[:query]}%", "%#{params[:query]}%")
-    end
+    @properties = @properties.filter_by_query(params[:query]) if params[:query].present?
+    @properties = @properties.filter_by_property_type(params[:property_type]) if params[:property_type].present?
+    @properties = @properties.filter_by_price(params[:min_price], params[:max_price]) if params[:min_price].present? && params[:max_price].present?
+    @properties = @properties.filter_by_bedrooms(params[:bedrooms]) if params[:bedrooms].present?
+    @properties = @properties.filter_by_bathrooms(params[:bathrooms]) if params[:bathrooms].present?
 
-    if params[:property_type].present?
-      @properties = @properties.where(property_type: params[:property_type])
-    end
-
-    if params[:min_price].present? && params[:max_price].present?
-      @properties = @properties.where(price: params[:min_price]..params[:max_price])
-    end
-
-    if params[:bedrooms].present?
-      @properties = @properties.where(bedrooms: params[:bedrooms])
-    end
-
-    if params[:bathrooms].present?
-      @properties = @properties.where(bathrooms: params[:bathrooms])
-    end
-
-    @properties = @properties.page(params[:page]).per(10) # Paginar resultados
+    @properties = @properties.page(params[:page]).per(10)
   end
 end

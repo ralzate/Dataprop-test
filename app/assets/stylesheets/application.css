@@ -14,41 +14,55 @@
  *= require_self
  */
 
+/* Variables CSS */
+:root {
+    --primary-color: #007bff;
+    --primary-hover: #0056b3;
+    --border-color: #ccc;
+    --padding-small: 10px;
+    --padding-medium: 20px;
+    --font-size-large: 16px;
+    --font-size-title: 20px;
+}
+
+/* Search Bar */
 .search-bar {
-    margin-bottom: 20px;
+    margin-bottom: var(--padding-medium);
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: var(--padding-small);
 }
 
 .search-bar input[type="text"],
 .search-bar select,
 .search-bar input[type="number"] {
-    padding: 10px;
-    font-size: 16px;
-    margin-right: 10px;
+    padding: var(--padding-small);
+    font-size: var(--font-size-large);
+    margin-right: var(--padding-small);
 }
 
 .search-bar .search-button {
-    padding: 10px 20px;
-    font-size: 16px;
+    padding: var(--padding-small) var(--padding-medium);
+    font-size: var(--font-size-large);
 }
 
+/* Properties List */
 .properties-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: var(--padding-medium);
 }
 
+/* Property Item */
 .property {
-    border: 1px solid #ccc;
-    padding: 20px;
+    border: 1px solid var(--border-color);
+    padding: var(--padding-medium);
     width: 300px;
 }
 
 .property h2 {
-    font-size: 20px;
-    margin-bottom: 10px;
+    font-size: var(--font-size-title);
+    margin-bottom: var(--padding-small);
 }
 
 .property p {
@@ -57,28 +71,52 @@
 
 .property a {
     display: inline-block;
-    margin-top: 10px;
-    padding: 10px 20px;
-    background-color: #007bff;
+    margin-top: var(--padding-small);
+    padding: var(--padding-small) var(--padding-medium);
+    background-color: var(--primary-color);
     color: white;
     text-decoration: none;
+    transition: background-color 0.3s;
 }
 
 .property a:hover {
-    background-color: #0056b3;
+    background-color: var(--primary-hover);
 }
 
+/* Property Photos */
 .property-photos {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 20px;
+    gap: var(--padding-small);
+    margin-top: var(--padding-medium);
 }
 
 .property-photos img {
     max-width: 300px;
     max-height: 300px;
     object-fit: cover;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-color);
     padding: 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .property {
+        width: 100%;
+    }
+
+    .search-bar {
+        flex-direction: column;
+    }
+
+    .search-bar input[type="text"],
+    .search-bar select,
+    .search-bar input[type="number"] {
+        margin-right: 0;
+        margin-bottom: var(--padding-small);
+    }
+
+    .search-bar .search-button {
+        width: 100%;
+    }
 }

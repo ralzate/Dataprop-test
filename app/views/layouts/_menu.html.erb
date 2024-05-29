@@ -4,9 +4,13 @@
     <li><%= link_to 'Propiedades', properties_path %></li>
 
     <% if user_signed_in? %>
-        <li><%= link_to 'Editar perfil', edit_user_registration_path %></li>
+      <li class="welcome-message">Bienvenido, <%= current_user.email %></li>
+      <li><%= link_to 'Editar perfil', edit_user_registration_path %></li>
+      <li class="logout-link"><%= link_to 'Cerrar sesión', destroy_user_session_path, method: :delete %></li>
+    <% else %>
+      <li><%= link_to 'Iniciar sesión', new_user_session_path %></li>
+      <li><%= link_to 'Registrarse', new_user_registration_path %></li>
     <% end %>
-
-    <!-- Agrega más elementos de menú según sea necesario -->
   </ul>
 </nav>
+

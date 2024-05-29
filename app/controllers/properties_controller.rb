@@ -1,35 +1,25 @@
 class PropertiesController < ApplicationController
   before_action :set_property, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index, :show]
+  before_action :set_districts, only: [:new, :edit, :create, :update]
+  before_action :authorize_user!, only: [:edit, :update, :destroy]
 
-  # GET /properties
   def index
     @properties = Property.all
   end
 
-  # GET /properties/1
   def show
   end
 
-  # GET /properties/new
   def new
     @property = Property.new
-    @districts = District.all
   end
 
-  # GET /properties/1/edit
   def edit
-    @property = Property.find(params[:id])
-    @districts = District.all
-    unless current_user == @property.user
-      redirect_to @property, alert: "You are not authorized to edit this property."
-    end
   end
 
-  # POST /properties
   def create
     @property = current_user.properties.build(property_params)
-    @districts = District.all
 
     respond_to do |format|
       if @property.save
@@ -42,13 +32,7 @@ class PropertiesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /properties/1
   def update
-    unless current_user == @property.user
-      redirect_to @property, alert: "You are not authorized to update this property."
-      return
-    end
-
     respond_to do |format|
       if @property.update(property_params)
         format.html { redirect_to property_url(@property), notice: "Property was successfully updated." }
@@ -60,14 +44,8 @@ class PropertiesController < ApplicationController
     end
   end
 
-  # DELETE /properties/1
   def destroy
-    unless current_user == @property.user
-      redirect_to properties_url, alert: "You are not authorized to delete this property."
-      return
-    end
-
-    @property.destroy!
+    @property.destroy
 
     respond_to do |format|
       format.html { redirect_to properties_url, notice: "Property was successfully destroyed." }
@@ -77,13 +55,21 @@ class PropertiesController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_property
     @property = Property.find(params[:id])
   end
 
-  # Only allow a list of trusted parameters through.
+  def set_districts
+    @districts = District.all
+  end
+
   def property_params
     params.require(:property).permit(:property_type, :price, :currency, :district_id, :address, :area, :bedrooms, :bathrooms, :latitude, :longitude, :description, photos: [])
+  end
+
+  def authorize_user!
+    unless current_user == @property.user
+      redirect_to @property, alert: "You are not authorized to perform this action."
+    end
   end
 end

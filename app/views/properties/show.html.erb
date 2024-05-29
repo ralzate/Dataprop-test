@@ -1,11 +1,10 @@
-<!-- app/views/properties/show.html.erb -->
 <h1><%= @property.address %></h1>
-<p><strong>Price:</strong> <%= @property.price %> <%= @property.currency %></p>
-<p><strong>Converted Price:</strong> <%= number_to_currency(@property.converted_price[:amount], unit: @property.converted_price[:currency]) %></p>
-<p><strong>Area:</strong> <%= @property.area %> m²</p>
-<p><strong>Bedrooms:</strong> <%= @property.bedrooms %></p>
-<p><strong>Bathrooms:</strong> <%= @property.bathrooms %></p>
-<p><strong>Description:</strong> <%= @property.description %></p>
+<p><strong><%= t('properties.price') %>:</strong> <%= @property.currency %> <%= @property.price %> </p>
+<p><strong><%= t('properties.converted_price') %>:</strong> <%= number_to_currency(@property.converted_price[:amount], unit: @property.converted_price[:currency]) %></p>
+<p><strong><%= t('properties.area') %>:</strong> <%= @property.area %> m²</p>
+<p><strong><%= t('properties.bedrooms') %>:</strong> <%= @property.bedrooms %></p>
+<p><strong><%= t('properties.bathrooms') %>:</strong> <%= @property.bathrooms %></p>
+<p><strong><%= t('properties.description') %>:</strong> <%= @property.description %></p>
 
 <% if @property.photos.attached? %>
   <h2>Photos:</h2>
@@ -32,7 +31,7 @@
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-    // Agregar marcador con ubicación de la propiedad
     L.marker([<%= @property.latitude %>, <%= @property.longitude %>]).addTo(map);
   });
 </script>
+
